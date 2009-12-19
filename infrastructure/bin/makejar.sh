@@ -20,7 +20,7 @@ else
     echo "using JAR $JAR..."
 fi
 
-cp ${MYSQL_CONNECTOR_JAR} lib/
+cp ${POSTGRESQL_CONNECTOR_JAR} lib/
 
 source bin/compilecache.sh
 

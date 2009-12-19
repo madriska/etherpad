@@ -24,15 +24,15 @@ function run() {
   }
 
   sqlobj.createTable('eepnet_signups', {
-    id: 'INT NOT NULL '+sqlcommon.autoIncrementClause()+' PRIMARY KEY',
-    email: 'VARCHAR(128) NOT NULL UNIQUE',
-    date: 'TIMESTAMP',
+    id: sqlcommon.autoIncrementClause(),
+    email: 'text NOT NULL UNIQUE',
+    date: 'timestamp',
     signupIp: 'VARCHAR(16)',
-    fullName: 'VARCHAR(255) NOT NULL',
-    orgName: 'VARCHAR(255) NOT NULL',
-    jobTitle: 'VARCHAR(255) NOT NULL',
-    estUsers: 'VARCHAR(255) NOT NULL',
-    licenseKey: 'VARCHAR(1024) NOT NULL'
+    fullName: 'text NOT NULL',
+    orgName: 'text NOT NULL',
+    jobTitle: 'text NOT NULL',
+    estUsers: 'text NOT NULL',
+    licenseKey: 'text NOT NULL'
   });
 }
 

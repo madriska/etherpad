@@ -20,7 +20,10 @@ import("sqlbase.sqlcommon");
 function run() {
   sqlobj.renameTable('pro_users', 'pro_accounts');
   sqlobj.renameTable('pro_users_auto_signin', 'pro_accounts_auto_signin');
-  sqlobj.changeColumn('pro_accounts_auto_signin', 'userId', 'accountId INT UNIQUE NOT NULL');
+  sqlobj.renameColumn('pro_accounts_auto_signin', 'userId', 'accountId');
+  sqlobj.modifyColumn('pro_accounts_auto_signin', 'accountId', 'integer');
+  sqlobj.execute('alter table pro_accounts_auto_signin add unique ("accountId");');
+  sqlobj.execute('alter table pro_accounts_auto_signin alter "accountId" set not null;');
   sqlobj.createIndex('pro_accounts_auto_signin', ['accountId']);
 }
 

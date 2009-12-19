@@ -26,9 +26,9 @@ function run() {
   sqlobj.createTable('pne_tracking_data', {
     id: sqlobj.getIdColspec(),
     date: sqlobj.getDateColspec("NOT NULL"),
-    keyHash: 'VARCHAR(128) DEFAULT NULL',
-    name: 'VARCHAR(128) NOT NULL',
-    value: 'VARCHAR(1024) NOT NULL'
+    keyHash: 'text DEFAULT NULL',
+    name: 'text NOT NULL',
+    value: 'text NOT NULL'
   });
 }
 

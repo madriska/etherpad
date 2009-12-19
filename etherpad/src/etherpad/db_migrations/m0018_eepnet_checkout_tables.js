@@ -22,40 +22,42 @@ function run() {
     return;
   }
   
-  var idColspec = "INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY";
+  var idColspec = "SERIAL PRIMARY KEY";
+
+  sqlobj.createEnumType('purchase_type', ['creditcard', 'invoice', 'paypal']);
 
   sqlobj.createTable('checkout_purchase', {
     id: idColspec,
-    invoiceId: "INT NOT NULL",
-    owner: "VARCHAR(128) NOT NULL",
-    email: "VARCHAR(128) NOT NULL",
-    organization: "VARCHAR(128) NOT NULL",
-    firstName: "VARCHAR(100) NOT NULL",
-    lastName: "VARCHAR(100) NOT NULL",
-    addressLine1: "VARCHAR(100) NOT NULL",
-    addressLine2: "VARCHAR(100) NOT NULL",
-    city: "VARCHAR(40) NOT NULL",
+    invoiceId: "integer NOT NULL",
+    owner: "text NOT NULL",
+    email: "text NOT NULL",
+    organization: "text NOT NULL",
+    firstName: "text NOT NULL",
+    lastName: "text NOT NULL",
+    addressLine1: "text NOT NULL",
+    addressLine2: "text NOT NULL",
+    city: "text NOT NULL",
     state: "VARCHAR(2) NOT NULL",
     zip: "VARCHAR(10) NOT NULL",
-    numUsers: "INT NOT NULL",
+    numUsers: "integer NOT NULL",
     date: "TIMESTAMP NOT NULL",
-    cents: "INT NOT NULL",
+    cents: "integer NOT NULL",
     referral: "VARCHAR(8)",
     receiptEmail: "TEXT",
-    purchaseType: "ENUM('creditcard', 'invoice', 'paypal') NOT NULL",
-    licenseKey: "VARCHAR(1024)"
+    purchaseType: "purchase_type",
+    licenseKey: "text"
   }, {
     email: true,
     invoiceId: true
   });
   
   sqlobj.createTable('checkout_referral', {
-    id: "VARCHAR(8) NOT NULL PRIMARY KEY",
-    productPctDiscount: "INT",
-    supportPctDiscount: "INT",
-    totalPctDiscount: "INT",
-    freeUsersCount: "INT",
-    freeUsersPct: "INT"
+    id: "text NOT NULL PRIMARY KEY",
+    productPctDiscount: "integer",
+    supportPctDiscount: "integer",
+    totalPctDiscount: "integer",
+    freeUsersCount: "integer",
+    freeUsersPct: "integer"
   });
   
   // add a sample referral code.

@@ -24,9 +24,9 @@ function run() {
 
   // add new columns.
   sqlobj.addColumns('eepnet_signups', {
-    firstName: 'VARCHAR(128) NOT NULL DEFAULT \'\'',
-    lastName: 'VARCHAR(128) NOT NULL DEFAULT \'\'',
-    phone: 'VARCHAR(128) NOT NULL DEFAULT \'\''
+    firstName: 'text NOT NULL DEFAULT \'\'',
+    lastName: 'text NOT NULL DEFAULT \'\'',
+    phone: 'text NOT NULL DEFAULT \'\''
   });
 
   // split name into first/last

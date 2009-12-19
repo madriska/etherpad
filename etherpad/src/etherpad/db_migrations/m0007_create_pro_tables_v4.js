@@ -26,9 +26,9 @@ function run() {
 
   sqlobj.createTable('pro_domains', {
     id: sqlobj.getIdColspec(),
-    subDomain: 'VARCHAR(128) UNIQUE NOT NULL',
-    extDomain: 'VARCHAR(128) DEFAULT NULL',
-    orgName: 'VARCHAR(128)'
+    subDomain: 'text UNIQUE NOT NULL',
+    extDomain: 'text DEFAULT NULL',
+    orgName: 'text'
   });
 
   sqlobj.createIndex('pro_domains', ['subDomain']);
@@ -36,11 +36,11 @@ function run() {
 
   sqlobj.createTable('pro_users', {
     id: sqlobj.getIdColspec(),
-    domainId: 'INT NOT NULL',
-    fullName: 'VARCHAR(128) NOT NULL',
-    email: 'VARCHAR(128) NOT NULL',  // not unique because same
-                                     // email can be on multiple domains.
-    passwordHash: 'VARCHAR(128) NOT NULL',
+    domainId: 'integer NOT NULL',
+    fullName: 'text NOT NULL',
+    email: 'text NOT NULL',  // not unique because same
+                             // email can be on multiple domains.
+    passwordHash: 'text NOT NULL',
     createdDate: sqlobj.getDateColspec("NOT NULL"),
     lastLoginDate: sqlobj.getDateColspec("DEFAULT NULL"),
     isAdmin: sqlobj.getBoolColspec("DEFAULT 0")
@@ -48,12 +48,12 @@ function run() {
 
   sqlobj.createTable('pro_padmeta', {
     id: sqlobj.getIdColspec(),
-    domainId: 'INT NOT NULL',
-    localPadId: 'VARCHAR(128) NOT NULL',
-    title: 'VARCHAR(128)',
-    creatorId: 'INT DEFAULT NULL',
+    domainId: 'integer NOT NULL',
+    localPadId: 'text NOT NULL',
+    title: 'text',
+    creatorId: 'integer DEFAULT NULL',
     createdDate: sqlobj.getDateColspec("NOT NULL"),
-    lastEditorId: 'INT DEFAULT NULL',
+    lastEditorId: 'integer DEFAULT NULL',
     lastEditedDate: sqlobj.getDateColspec("DEFAULT NULL")
   });
 

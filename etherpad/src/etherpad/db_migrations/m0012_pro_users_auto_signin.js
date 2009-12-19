@@ -20,8 +20,8 @@ import("sqlbase.sqlobj");
 function run() {
   sqlobj.createTable('pro_users_auto_signin', {
     id: sqlobj.getIdColspec(),
-    cookie: 'VARCHAR(128) UNIQUE NOT NULL',
-    userId: 'INT UNIQUE NOT NULL',
+    cookie: 'text UNIQUE NOT NULL',
+    userId: 'integer UNIQUE NOT NULL',
     expires: sqlobj.getDateColspec('NOT NULL')
   });
   sqlobj.createIndex('pro_users_auto_signin', ['cookie']);

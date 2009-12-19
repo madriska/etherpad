@@ -19,12 +19,12 @@ import("sqlbase.sqlobj");
 
 function run() {
 
-  var idColspec = 'INT NOT NULL '+sqlcommon.autoIncrementClause()+' PRIMARY KEY';
+  var idColspec = sqlcommon.autoIncrementClause();
 
   sqlobj.createTable('persistent_vars', {
     id: idColspec,
-    name: 'VARCHAR(128) UNIQUE NOT NULL',
-    stringVal: 'VARCHAR(1024)'
+    name: 'text UNIQUE NOT NULL',
+    stringVal: 'text'
   });
 
 }

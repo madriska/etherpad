@@ -26,6 +26,7 @@ class SQLBase(driverClass: String, url: String, userName: String, password: Stri
 
   def isMysql:Boolean = (url.startsWith("jdbc:mysql:"));
   def isDerby:Boolean = (url.startsWith("jdbc:derby:"));
+  def isPostgresql:Boolean = (url.startsWith("jdbc:postgresql:"));
 
   if (isDerby) {
     System.setProperty("derby.system.home", config.derbyHome);
@@ -160,7 +161,7 @@ class SQLBase(driverClass: String, url: String, userName: String, password: Stri
   def quoteIdentifier(s: String) = identifierQuoteString+s+identifierQuoteString;
   private def id(s: String) = quoteIdentifier(s);
   
-  def longTextType = if (isDerby) "CLOB" else "MEDIUMTEXT";
+  def longTextType = "text";
 
   // derby seems to do things intelligently w.r.t. case-sensitivity and unicode support.
   def createTableOptions = if (isMysql) " ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin" else "";
@@ -297,10 +298,17 @@ class SQLBase(driverClass: String, url: String, userName: String, password: Stri
         // create tables and indices
         val s = c.createStatement;
         closing(s) {
-          s.execute("CREATE TABLE "+metaTableName(table)+" ("+
-                    id("ID")+" VARCHAR(128) PRIMARY KEY NOT NULL, "+
-                    id("NUMID")+" INT UNIQUE "+autoIncrementClause+" "+
-                    ")"+createTableOptions);
+          if(isPostgresql) {
+            // use serial, not auto_increment
+            s.execute("CREATE TABLE "+metaTableName(table)+" ("+
+                      id("ID")+" VARCHAR(128) PRIMARY KEY NOT NULL, "+
+                      id("NUMID")+" serial unique)"+createTableOptions);
+          } else {
+            s.execute("CREATE TABLE "+metaTableName(table)+" ("+
+                      id("ID")+" VARCHAR(128) PRIMARY KEY NOT NULL, "+
+                      id("NUMID")+" INT UNIQUE "+autoIncrementClause+" "+
+                      ")"+createTableOptions);
+          }
           val defaultOffsets = (1 to PAGE_SIZE).map(x=>"").mkString(",");
           s.execute("CREATE TABLE "+textTableName(table)+" ("+
                     ""+id("NUMID")+" INT, "+id("PAGESTART")+" INT, "+id("OFFSETS")+" VARCHAR(256) NOT NULL DEFAULT '"+defaultOffsets+
@@ -424,7 +432,10 @@ class SQLBase(driverClass: String, url: String, userName: String, password: Stri
         error("No generated numid for insert");
       closing(resultSet) {
         if (! resultSet.next()) error("No generated numid for insert");
-        resultSet.getInt(1);
+        // PostgreSQL JDBC adapter returns the numid in second column; access by
+        // column name. getGeneratedKeys doesn't work in PostgreSQL as it does
+        // in MySQL, because Postgres is more flexible wrt sequences.
+        resultSet.getInt("numid");
       }
     }
   }

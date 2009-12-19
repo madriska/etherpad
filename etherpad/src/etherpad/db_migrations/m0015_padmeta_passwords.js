@@ -18,7 +18,7 @@ import("sqlbase.sqlobj");
 
 function run() {
   sqlobj.addColumns('pro_padmeta', {
-   password: 'VARCHAR(128) DEFAULT NULL'
+   password: 'text DEFAULT NULL'
   });
 }
 

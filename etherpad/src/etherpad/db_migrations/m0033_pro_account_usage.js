@@ -19,8 +19,8 @@ import("sqlbase.sqlobj");
 function run() {
   sqlobj.createTable('pro_account_usage', {
     id: sqlobj.getIdColspec(),
-    domainId: 'INT NOT NULL UNIQUE',
-    count: 'INT NOT NULL DEFAULT 0',
+    domainId: 'integer NOT NULL UNIQUE',
+    count: 'integer NOT NULL DEFAULT 0',
     lastReset: sqlobj.getDateColspec(),
     lastUpdated: sqlobj.getDateColspec()
   });

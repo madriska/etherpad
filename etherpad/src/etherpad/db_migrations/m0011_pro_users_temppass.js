@@ -22,10 +22,10 @@ function run() {
   if (sqlcommon.isDerby()) {
     sqlobj.alterColumn('pro_users', 'passwordHash', 'NULL');
   } else {
-    sqlobj.modifyColumn('pro_users', 'passwordHash', 'VARCHAR(128)');
+    sqlobj.modifyColumn('pro_users', 'passwordHash', 'text');
   }
   sqlobj.addColumns('pro_users', {
-    tempPassHash: 'VARCHAR(128)'
+    tempPassHash: 'text'
   });
 }
 

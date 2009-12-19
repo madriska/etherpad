@@ -23,6 +23,6 @@ function run() {
   }
   
   sqlobj.addColumns('billing_payment_info', {
-    email: "VARCHAR(255)"
+    email: "text"
   });
 }

@@ -22,42 +22,49 @@ function run() {
     return;
   }
   
-  var idColspec = "INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY";
+  var idColspec = "SERIAL PRIMARY KEY";
+
+  sqlobj.createEnumType('billing_type', ['onetimepurchase', 'subscription']);
+  sqlobj.createEnumType('billing_status', ['active', 'inactive']);
 
   sqlobj.createTable('billing_purchase', {
     id: idColspec,
-    type: "ENUM('onetimepurchase', 'subscription')",
-    customer: "INT(11) NOT NULL",
-    product: "VARCHAR(128) NOT NULL",
-    cost: "INT(11) NOT NULL",
-    coupon: "VARCHAR(128) NOT NULL",
-    time: "DATETIME",
-    paidThrough: "DATETIME",
-    status: "ENUM('active', 'inactive')"
+    type: "billing_type",
+    customer: "integer NOT NULL",
+    product: "text NOT NULL",
+    cost: "integer NOT NULL",
+    coupon: "text NOT NULL",
+    time: "timestamp",
+    paidThrough: "timestamp",
+    status: "billing_status"
   }, {
     type: true,
     customer: true,
     product: true
   });
+
+  sqlobj.createEnumType('invoice_status', ['pending', 'paid', 'void', 'returned']);
   
   sqlobj.createTable('billing_invoice', {
     id: idColspec,
-    time: "DATETIME",
-    purchase: "INT(11) NOT NULL",
-    amt: "INT(11) NOT NULL",
-    status: "ENUM('pending', 'paid', 'void', 'refunded')"
+    time: "timestamp",
+    purchase: "integer NOT NULL",
+    amt: "integer NOT NULL",
+    status: "invoice_status"
   }, {
     status: true
   });
   
+  sqlobj.createEnumType('transaction_status', ['new', 'success', 'failure', 'pending']);
+
   sqlobj.createTable('billing_transaction', {
     id: idColspec,
-    customer: "INT(11)",
-    time: "DATETIME",
-    amt: "INT(11)",
-    payInfo: "VARCHAR(128)",
-    txnId: "VARCHAR(128)", // depends on gateway used?
-    status: "ENUM('new', 'success', 'failure', 'pending')"
+    customer: "integer",
+    time: "timestamp",
+    amt: "integer",
+    payInfo: "text",
+    txnId: "text", // depends on gateway used?
+    status: "transaction_status"
   }, {
     customer: true,
     txnId: true
@@ -65,9 +72,9 @@ function run() {
   
   sqlobj.createTable('billing_adjustment', {
     id: idColspec,
-    transaction: "INT(11)",
-    invoice: "INT(11)",
-    time: "DATETIME",
-    amt: "INT(11)"
+    transaction: "integer",
+    invoice: "integer",
+    time: "timestamp",
+    amt: "integer"
   });
 }

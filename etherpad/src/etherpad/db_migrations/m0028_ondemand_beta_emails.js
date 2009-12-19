@@ -19,8 +19,8 @@ import("sqlbase.sqlobj");
 function run() {
   sqlobj.createTable('pro_beta_signups', {
     id: sqlobj.getIdColspec(),
-    email: 'VARCHAR(256)',
-    activationCode: 'VARCHAR(128)',
+    email: 'text',
+    activationCode: 'text',
     isActivated: sqlobj.getBoolColspec(),
     signupDate: sqlobj.getDateColspec(),
     activationDate: sqlobj.getDateColspec()

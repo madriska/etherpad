@@ -19,8 +19,8 @@ import("sqlbase.sqlobj");
 function run() {
   sqlobj.createTable('pro_config', {
     id: sqlobj.getIdColspec(),
-    domainId: 'INT',
-    name: 'VARCHAR(128)',
+    domainId: 'integer',
+    name: 'text',
     jsonVal: sqlobj.getLongtextColspec("")
   });
 }

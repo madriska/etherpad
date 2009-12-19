@@ -1,3 +1,34 @@
+== Madriska's PostgreSQL Etherpad Forktacular
+
+This is the super-experimental PostgreSQL fork of Etherpad. Instructions:
+
+1. Grab the code.
+
+    git clone git://github.com/madriska/etherpad.git
+
+2. Set up your JDK, Scala, and environment variables (except the MySQL stuff) per this doc: 
+
+    http://code.google.com/p/etherpad/wiki/Instructions
+
+3. Download the PostgreSQL JDBC adapter (jdbc.postgresql.org) and point the jar packager to its path:
+
+    export POSTGRESQL_CONNECTOR_JAR=path/to/postgresql-8.4-701.jdbc4.jar
+
+4. cd to etherpad; set up your database. This should probably be done manually but there's a big candy button for it:
+
+    cd etherpad/
+    sudo -u postgres bin/setup-postgresql-db.sh
+
+5. Compile the jar and start the server:
+
+    bin/rebuildjar.sh
+    bin/run-local.sh
+
+6. And you're done. Visit http://localhost:9000/ and start playing around.
+
+
+== Plain-Old-Etherpad README
+
 EtherPad is a web-based realtime collaborative document editor.
 
 EtherPad currently lives at http://code.google.com/p/etherpad

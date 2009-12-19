@@ -23,11 +23,11 @@ import("etherpad.utils.startConsoleProgressBar");
 function run() {
 
   sqlobj.dropAndCreateTable('PAD_SQLMETA', {
-    id: 'VARCHAR(128) PRIMARY KEY NOT NULL',
-    version: 'INT NOT NULL',
+    id: 'text PRIMARY KEY NOT NULL',
+    version: 'integer NOT NULL',
     creationTime: sqlobj.getDateColspec('NOT NULL'),
     lastWriteTime: sqlobj.getDateColspec('NOT NULL'),
-    headRev: 'INT NOT NULL'
+    headRev: 'integer NOT NULL'
   });
 
   sqlobj.createIndex('PAD_SQLMETA', ['version']);

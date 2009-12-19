@@ -83,7 +83,11 @@ function doesTableExist(table) {
 }
 
 function autoIncrementClause() {
-  return _sqlbase().autoIncrementClause();
+  if(_sqlbase().isPostgresql()) {
+    return 'serial primary key';
+  } else {
+    return 'int not null '+_sqlbase().autoIncrementClause()+' primary key';
+  }
 }
 
 function createTableOptions() {

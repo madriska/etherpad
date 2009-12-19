@@ -22,11 +22,11 @@ function run() {
     return;
   }
   
-  var idColspec = "INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY";
+  var idColspec = "SERIAL PRIMARY KEY";
 
   sqlobj.createTable('checkout_pro_referral', {
     id: "VARCHAR(8) NOT NULL PRIMARY KEY",
-    pctDiscount: "INT",
-    freeUsers: "INT",
+    pctDiscount: "integer",
+    freeUsers: "integer",
   });
 }

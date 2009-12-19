@@ -24,8 +24,8 @@ function run() {
 
   sqlobj.createTable('pad_guests', {
     id: sqlobj.getIdColspec(),
-    privateKey: 'VARCHAR(63) UNIQUE NOT NULL',
-    userId: 'VARCHAR(63) UNIQUE NOT NULL',
+    privateKey: 'text UNIQUE NOT NULL',
+    userId: 'text UNIQUE NOT NULL',
     createdDate: sqlobj.getDateColspec("NOT NULL"),
     lastActiveDate: sqlobj.getDateColspec("NOT NULL"),
     data: sqlobj.getLongtextColspec("")

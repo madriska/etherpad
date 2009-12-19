@@ -91,7 +91,7 @@ function onStartup() {
   if (!sqlcommon.doesTableExist("db_migrations")) {
     appjet.cache.db_migrations_print_debug = false;
     sqlobj.createTable('db_migrations', {
-      id: 'INT NOT NULL '+sqlcommon.autoIncrementClause()+' PRIMARY KEY',
+      id: sqlcommon.autoIncrementClause(),
       name: 'VARCHAR(255) NOT NULL UNIQUE',
       completed: 'TIMESTAMP'
     });

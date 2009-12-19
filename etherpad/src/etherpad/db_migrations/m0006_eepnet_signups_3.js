@@ -24,6 +24,6 @@ function run() {
 
   // add new columns.
   sqlobj.addColumns('eepnet_signups', {
-    industry: 'VARCHAR(128)',
+    industry: 'text',
   });
 }

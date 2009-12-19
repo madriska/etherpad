@@ -22,5 +22,6 @@ function run() {
     return;
   }
   
-  sqlobj.modifyColumn('statistics', 'value', 'MEDIUMTEXT NOT NULL');
+  sqlobj.modifyColumn('statistics', 'value', 'text');
+  sqlobj.execute('alter table statistics alter value set not null');
 }
